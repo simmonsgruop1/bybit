@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <title>ByBit - регистрация</title>
+
+    <!-- Tailwind v3 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwindConfig.js"></script>
+
+    <!-- App JS (Tailwind runtime config + logic) -->
+    <script type="module" src="js/boot.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style/intlTelInput.css" />
+    <link rel="stylesheet" href="style/app.css" />
+  </head>
+  <body
+    class="bg-base-900 text-ink-500 selection:bg-accent-500/20 selection:text-ink-700 min-h-screen flex flex-col"
+  >
+    <!-- Top Banner / Announcement -->
+
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-white/5 bg-base-900/85 backdrop-blur"
+    >
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
+        <a href="register.html" class="flex items-center gap-2 group">
+          <img
+            src="img/logo.webp"
+            alt="ByBit"
+            class="h-8 w-auto md:h-9 shrink-0 select-none"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <nav class="ml-auto hidden md:flex items-center gap-6 text-sm">
+          <a class="hover:text-ink-700" href="register.html">Регистрация</a>
+          <a class="hover:text-ink-700" href="#" data-nav-auth></a>
+          <a
+            class="inline-flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-base-900 font-semibold shadow-soft hover:bg-accent-600 transition"
+            href="dashboard.html"
+            data-nav-cabinet
+            >Личный кабинет</a
+          >
+        </nav>
+        <button
+          class="md:hidden ml-auto rounded-lg ring-1 ring-white/10 px-3 py-1.5 text-sm"
+          onclick="document.getElementById('mnav').classList.toggle('hidden')"
+        >
+          Меню
+        </button>
+      </div>
+      <div id="mnav" class="md:hidden hidden border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
+          <a class="text-left" href="register.html">Регистрация</a>
+          <a class="text-left" href="#" data-nav-auth></a>
+          <a
+            class="inline-flex items-center justify-center rounded-lg bg-accent-500 px-4 py-2 text-base-900 font-semibold shadow-soft hover:bg-accent-600 transition"
+            href="dashboard.html"
+            data-nav-cabinet
+            >Личный кабинет</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-10 space-y-8 flex-grow">
+      <!-- Hero Strip -->
+      <section
+        class="hidden sm:block relative overflow-hidden rounded-2xl border border-white/5 shadow-soft p-6 glass"
+      >
+        <div
+          class="absolute -top-40 -right-24 h-72 w-72 rounded-full bg-accent-500/20 blur-3xl"
+        ></div>
+        <div
+          class="absolute -bottom-40 -left-24 h-72 w-72 rounded-full bg-accent-500/10 blur-3xl"
+        ></div>
+        <div class="relative">
+          <h2 class="text-2xl sm:text-3xl font-semibold text-ink-700">
+            Ваш кабинет компенсации
+          </h2>
+          <p class="mt-2 max-w-3xl">
+            Единственный вход для регистрации, доступа к статусу дела и
+            безопасного сохранения сид-фразы.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <a
+              href="register.html"
+              class="inline-flex items-center gap-2 rounded-xl bg-accent-500 px-4 py-2 text-base-900 font-semibold shadow-soft hover:bg-accent-600 transition"
+              >Завести аккаунт</a
+            >
+            <a
+              href="login.html"
+              class="inline-flex items-center gap-2 rounded-xl ring-1 ring-white/10 px-4 py-2 font-medium hover:bg-white/5 transition"
+              >У меня уже есть аккаунт</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- Registration -->
+      <section
+        class="rounded-2xl border border-white/5 bg-base-800 p-6 shadow-soft"
+      >
+        <h3 class="text-xl font-semibold text-ink-700 mb-1">
+          Регистрация кабинета для получения компенсации
+        </h3>
+        <p class="text-ink-300 mb-6">
+          Заполните поля ниже, чтобы создать учетную запись.
+        </p>
+        <form id="form-register" class="space-y-5" autocomplete="off">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="firstName" class="block text-sm text-ink-300 mb-1"
+                >Имя</label
+              >
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                required
+                class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 text-ink-700 placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+              />
+            </div>
+            <div>
+              <label for="lastName" class="block text-sm text-ink-300 mb-1"
+                >Фамилия</label
+              >
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                required
+                class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 text-ink-700 placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+              />
+            </div>
+            <div>
+              <label for="phone" class="block text-sm text-ink-300 mb-1"
+                >Номер телефона</label
+              >
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 text-ink-700 placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+              />
+              <div id="phone-error" class="mt-2 text-sm text-red-400"></div>
+            </div>
+            <div>
+              <label for="email" class="block text-sm text-ink-300 mb-1"
+                >Email</label
+              >
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="new-email"
+                required
+                class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 text-ink-700 placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+              />
+            </div>
+            <div>
+              <label for="password" class="block text-sm text-ink-300 mb-1"
+                >Пароль (мин. 6 символов)</label
+              >
+              <div class="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                  class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 pr-10 text-ink-700 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+                />
+                <button
+                  type="button"
+                  data-toggle-password="password"
+                  class="absolute right-2 top-2 text-ink-300 hover:text-ink-700"
+                  title="Показать/скрыть"
+                >
+                  👁
+                </button>
+              </div>
+            </div>
+            <div>
+              <label
+                for="passwordConfirm"
+                class="block text-sm text-ink-300 mb-1"
+                >Подтверждение пароля</label
+              >
+              <div class="relative">
+                <input
+                  id="passwordConfirm"
+                  name="passwordConfirm"
+                  type="password"
+                  autocomplete="new-password"
+                  minlength="6"
+                  required
+                  class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 pr-10 text-ink-700 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+                />
+                <button
+                  type="button"
+                  data-toggle-password="passwordConfirm"
+                  class="absolute right-2 top-2 text-ink-300 hover:text-ink-700"
+                  title="Показать/скрыть"
+                >
+                  👁
+                </button>
+              </div>
+            </div>
+            <div>
+              <label for="caseNumber" class="block text-sm text-ink-300 mb-1"
+                >Номер дела</label
+              >
+              <input
+                id="caseNumber"
+                name="caseNumber"
+                type="text"
+                required
+                inputmode="numeric"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="#123-4567"
+                class="w-full rounded-xl bg-base-700 border border-white/10 px-3 py-2 text-ink-700 placeholder:opacity-40 focus:outline-none focus:ring-2 focus:ring-accent-500/50"
+                aria-describedby="case-error"
+              />
+              <div id="case-error" class="mt-2 text-sm text-red-400"></div>
+            </div>
+          </div>
+          <p
+            class="text-sm text-yellow-400/90 bg-yellow-500/10 border border-yellow-500/20 rounded-lg px-3 py-2"
+          >
+            ⚠️ Внимание! Никогда не передавайте логин, пароль и номер дела
+            третьим лицам.
+          </p>
+          <button
+            type="submit"
+            class="w-full rounded-xl bg-accent-500 text-base-900 px-4 py-2 font-semibold shadow-soft hover:bg-accent-600 transition"
+          >
+            Зарегистрироваться
+          </button>
+        </form>
+        <div class="text-sm text-center text-ink-300 mt-4">
+          Есть аккаунт?
+          <a class="text-ink-700 underline decoration-dotted" href="login.html"
+            >Войти</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="max-w-6xl mx-auto px-4 pb-10 text-center text-xs text-ink-300"
+    >
+      © 2018-2025 Bybit. Все права защищены
+    </footer>
+
+    <!-- Pending overlay -->
+    <div
+      id="pending-overlay"
+      class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+    >
+      <div class="h-full w-full flex items-center justify-center">
+        <div
+          class="flex flex-col items-center gap-4 rounded-2xl bg-base-800/90 px-8 py-7 ring-1 ring-white/10 shadow-2xl"
+        >
+          <!-- Спиннер -->
+          <div
+            class="h-10 w-10 rounded-full border-2 border-white/20 border-t-white animate-spin"
+          ></div>
+          <div id="pending-text" class="text-ink-200 text-sm">
+            Отправляем письмо…
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/intlTelInput.js"></script>
+    <script src="js/utils.js"></script>
+  </body>
+</html>

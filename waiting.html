@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+    <title>ByBit – ожидание подтверждения</title>
+
+    <!-- Tailwind v3 CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/tailwindConfig.js"></script>
+
+    <script type="module" src="js/boot.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style/app.css" />
+  </head>
+  <body
+    class="bg-base-900 text-ink-500 selection:bg-accent-500/20 selection:text-ink-700 min-h-screen flex flex-col"
+  >
+    <!-- Header -->
+    <header
+      class="sticky top-0 z-40 border-b border-white/5 bg-base-900/85 backdrop-blur"
+    >
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-6">
+        <a href="register.html" class="flex items-center gap-2 group">
+          <img
+            src="img/logo.webp"
+            alt="ByBitF"
+            class="h-8 w-auto md:h-9 shrink-0 select-none"
+          />
+        </a>
+        <nav class="ml-auto hidden md:flex items-center gap-6 text-sm">
+          <a class="hover:text-ink-700" href="register.html">Регистрация</a>
+          <a class="hover:text-ink-700" href="#" data-nav-auth></a>
+          <a
+            class="inline-flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-base-900 font-semibold shadow-soft hover:bg-accent-600 transition"
+            href="dashboard.html"
+            data-nav-cabinet
+            >Личный кабинет</a
+          >
+        </nav>
+        <button
+          class="md:hidden ml-auto rounded-lg ring-1 ring-white/10 px-3 py-1.5 text-sm"
+          onclick="document.getElementById('mnav').classList.toggle('hidden')"
+        >
+          Меню
+        </button>
+      </div>
+      <div id="mnav" class="md:hidden hidden border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-3 text-sm">
+          <a class="text-left" href="register.html">Регистрация</a>
+          <a class="text-left" href="#" data-nav-auth></a>
+          <a
+            class="inline-flex items-center justify-center rounded-lg bg-accent-500 px-4 py-2 text-base-900 font-semibold shadow-soft hover:bg-accent-600 transition"
+            href="dashboard.html"
+            data-nav-cabinet
+            >Личный кабинет</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main
+      class="max-w-6xl mx-auto px-4 py-10 flex-grow flex items-center justify-center"
+    >
+      <section
+        class="rounded-2xl border border-white/5 bg-base-800 p-10 shadow-soft text-center max-w-lg"
+      >
+        <h1 class="text-2xl sm:text-3xl font-semibold text-ink-700 mb-4">
+          Ожидание подтверждения
+        </h1>
+        <p class="text-ink-300">
+          Ожидайте подтверждение регистрации на вашу электронную почту.
+        </p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="max-w-6xl mx-auto px-4 pb-10 text-center text-xs text-ink-300"
+    >
+      © 2018-2025 Bybit. Все права защищены
+    </footer>
+  </body>
+</html>

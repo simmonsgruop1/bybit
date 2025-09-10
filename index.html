@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+    <title>ByBit — Загрузка</title>
+    <script>
+      // Проверка localStorage и редирект
+      (function () {
+        try {
+          const user = JSON.parse(localStorage.getItem("fc_user") || "{}");
+          if (user && user.email) {
+            // Если есть данные пользователя → ведём в кабинет
+            location.href = "dashboard.html";
+          } else {
+            // Если нет — на регистрацию
+            location.href = "register.html";
+          }
+        } catch (e) {
+          location.href = "register.html";
+        }
+      })();
+    </script>
+  </head>
+  <body
+    style="
+      background: #0f1115;
+      color: #d0d6e1;
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    "
+  >
+    <p>Загрузка...</p>
+  </body>
+</html>
