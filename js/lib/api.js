@@ -1,5 +1,3 @@
-const API_BASE = "http://localhost/api"; // XAMPP локально (Apache)
-
 export function setToken(t) {
   localStorage.setItem("fc_token", t);
 }
