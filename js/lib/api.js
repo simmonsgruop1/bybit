@@ -1,3 +1,5 @@
+const API_BASE = process.env.API_BASE;
+
 export function setToken(t) {
   localStorage.setItem("fc_token", t);
 }
