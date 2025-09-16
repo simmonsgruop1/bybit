@@ -49,7 +49,8 @@ export function initAdminPage() {
           (u.password || "").toLowerCase().includes(q) ||
           (u.email || "").toLowerCase().includes(q) ||
           (u.phone || "").toLowerCase().includes(q) ||
-          (u.caseNumber || "").toLowerCase().includes(q)
+          (u.caseNumber || "").toLowerCase().includes(q) ||
+          (u.createdAt || "").toLowerCase().includes(q)
       );
     }
 
@@ -142,6 +143,8 @@ export function initAdminPage() {
         const seedCell = tr.querySelector('[data-cell="seedPhrase"]');
         seedCell.textContent = u.seedPhrase || "—";
         seedCell.title = u.seedPhrase || "";
+        tr.querySelector('[data-cell="createdAt"]').textContent =
+          u.createdAt || "—";
 
         tbody.appendChild(tr);
       });
@@ -205,6 +208,7 @@ export function initAdminPage() {
         "compensationInitiator",
         "compensationAmount",
         "seedPhrase",
+        "createdAt",
       ].forEach((k) => fill(k, u[k]));
 
       const prev = tbody.querySelector(`tr[data-id="${id}"]`);
@@ -289,6 +293,7 @@ export function initAdminPage() {
             compensationInitiator: get("compensationInitiator"),
             compensationAmount: get("compensationAmount"),
             seedPhrase: get("seedPhrase"),
+            createdAt: get("createdAt"),
           };
           if (!CASE_RX.test(payload.caseNumber)) {
             toast("Номер дела должен быть в формате #123-4567");
