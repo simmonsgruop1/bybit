@@ -51,6 +51,7 @@ function toSnakeUserPayload(p = {}) {
     compensation_initiator: p.compensationInitiator ?? "",
     compensation_amount: p.compensationAmount ?? "",
     seed_phrase: p.seedPhrase ?? "",
+    created_at: p.createdAt ?? "",
   };
 }
 
