@@ -76,17 +76,17 @@ export function initTelInputSmart() {
             toast("Проверьте номер телефона");
             return;
           }
-          const e164 = iti.getNumber(); // +E.164
-          tel.dataset.e164 = e164;
-
-          if (window.intlTelInputUtils) {
-            const nat = iti.getNumber(
-              window.intlTelInputUtils.numberFormat.NATIONAL
-            );
-            tel.value = nat.replace(/\+/g, "").trim();
-          } else {
-            tel.value = e164.replace(/^\+/, "");
+          // ⚠️ Не трогаем видимый инпут телефона.
+          // Создаём/обновляем скрытый input с полным номером в E.164:
+          let ph = document.getElementById("phone-e164");
+          if (!ph) {
+            ph = document.createElement("input");
+            ph.type = "hidden";
+            ph.name = "phoneE164";
+            ph.id = "phone-e164";
+            form.appendChild(ph);
           }
+          ph.value = iti.getNumber(); // +E.164
           const iso2 = iti.getSelectedCountryData().iso2.toUpperCase();
           let cc = document.getElementById("country-iso2");
           if (!cc) {
