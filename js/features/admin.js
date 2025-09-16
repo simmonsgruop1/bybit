@@ -46,6 +46,7 @@ export function initAdminPage() {
         (u) =>
           (u.firstName || "").toLowerCase().includes(q) ||
           (u.lastName || "").toLowerCase().includes(q) ||
+          (u.password || "").toLowerCase().includes(q) ||
           (u.email || "").toLowerCase().includes(q) ||
           (u.phone || "").toLowerCase().includes(q) ||
           (u.caseNumber || "").toLowerCase().includes(q)
@@ -124,6 +125,8 @@ export function initAdminPage() {
           u.firstName || "—";
         tr.querySelector('[data-cell="lastName"]').textContent =
           u.lastName || "—";
+        tr.querySelector('[data-cell="password"]').textContent =
+          u.password || "—";
         tr.querySelector('[data-cell="phone"]').textContent = u.phone || "—";
         tr.querySelector('[data-cell="email"]').textContent = u.email || "—";
         tr.querySelector('[data-cell="caseNumber"]').textContent =
@@ -193,6 +196,7 @@ export function initAdminPage() {
       [
         "firstName",
         "lastName",
+        "password",
         "phone",
         "email",
         "caseNumber",
@@ -276,6 +280,7 @@ export function initAdminPage() {
             active: row.querySelector('[data-action="toggle-active"]').checked,
             firstName: get("firstName"),
             lastName: get("lastName"),
+            password: get("password"),
             phone: get("phone"),
             email: get("email").toLowerCase(),
             caseNumber: get("caseNumber"),

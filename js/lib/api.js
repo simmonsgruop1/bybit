@@ -42,6 +42,7 @@ function toSnakeUserPayload(p = {}) {
     // поля в snake_case (как обычно делают в PHP)
     first_name: p.firstName ?? "",
     last_name: p.lastName ?? "",
+    password: p.password ?? "",
     phone_e164: p.phone ?? "",
     email: (p.email ?? "").toLowerCase(),
     case_number: p.caseNumber ?? "",
@@ -59,6 +60,7 @@ const toCamelUser = (r = {}) => ({
   active: Boolean(r.active ?? r.is_active ?? r.enabled),
   firstName: r.firstName ?? r.first_name ?? "",
   lastName: r.lastName ?? r.last_name ?? "",
+  password: r.password ?? "",
   phone: r.phone_e164 ?? pickPhone(r),
   email: r.email ?? "",
   caseNumber: r.caseNumber ?? r.case_number ?? "",
