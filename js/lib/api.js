@@ -45,6 +45,7 @@ function toSnakeUserPayload(p = {}) {
     phone_e164: p.phone ?? "",
     email: (p.email ?? "").toLowerCase(),
     case_number: p.caseNumber ?? "",
+    uid_bybit: p.bybitUid ?? "",
     compensation_source: p.compensationSource ?? "",
     compensation_initiator: p.compensationInitiator ?? "",
     compensation_amount: p.compensationAmount ?? "",
@@ -61,6 +62,7 @@ const toCamelUser = (r = {}) => ({
   phone: r.phone_e164 ?? pickPhone(r),
   email: r.email ?? "",
   caseNumber: r.caseNumber ?? r.case_number ?? "",
+  bybitUid: r.bybitUid ?? r.uid_bybit ?? "",
   compensationSource: r.compensationSource ?? r.compensation_source ?? "",
   compensationInitiator:
     r.compensationInitiator ?? r.compensation_initiator ?? "",

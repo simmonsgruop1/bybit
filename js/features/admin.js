@@ -128,6 +128,8 @@ export function initAdminPage() {
         tr.querySelector('[data-cell="email"]').textContent = u.email || "—";
         tr.querySelector('[data-cell="caseNumber"]').textContent =
           u.caseNumber || "—";
+        tr.querySelector('[data-cell="bybitUid"]').textContent =
+          u.bybitUid || "—";
         tr.querySelector('[data-cell="compensationSource"]').textContent =
           u.compensationSource || "—";
         tr.querySelector('[data-cell="compensationInitiator"]').textContent =
@@ -194,6 +196,7 @@ export function initAdminPage() {
         "phone",
         "email",
         "caseNumber",
+        "bybitUid",
         "compensationSource",
         "compensationInitiator",
         "compensationAmount",
@@ -276,6 +279,7 @@ export function initAdminPage() {
             phone: get("phone"),
             email: get("email").toLowerCase(),
             caseNumber: get("caseNumber"),
+            bybitUid: get("bybitUid"),
             compensationSource: get("compensationSource"),
             compensationInitiator: get("compensationInitiator"),
             compensationAmount: get("compensationAmount"),

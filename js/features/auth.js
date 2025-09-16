@@ -39,6 +39,7 @@ export function initRegisterPage() {
       email: f.email.value.trim().toLowerCase(),
       password: pwd,
       caseNumber: f.caseNumber.value.trim(),
+      bybitUid: (f.bybitUid?.value || "").trim(),
     };
 
     // --- pending helpers (локальная версия из админки) ---
