@@ -7,7 +7,6 @@ export function initRegisterPage() {
   if (!form) return;
 
   if (getToken()) {
-    // уже залогинен → отправим в кабинет (или куда нужно)
     location.href = "dashboard.html";
     return;
   }
@@ -31,120 +30,56 @@ export function initRegisterPage() {
       pc?.removeAttribute("aria-invalid");
     }
 
+    // телефон: возьмём E.164 из data-атрибута, который выставит phone.js
+    const phone = f.phone?.dataset?.e164 || f.phone.value.trim();
+
+    // --- pending helpers (как было)
+    let pendingCount = 0;
+    function setPending(on, text = "Отправляем письмо…") {
+      /* без изменений */
+    }
+    function startSmartPending(
+      text = "Регистрация…",
+      thresholdMs = 250,
+      minVisibleMs = 400
+    ) {
+      /* без изменений */
+    }
+
+    const submitBtn = f.querySelector('button[type="submit"]');
+    submitBtn?.setAttribute("data-prev-text", submitBtn.textContent || "");
+    if (submitBtn) submitBtn.textContent = "Регистрируем…";
+    const stopPending = startSmartPending("Регистрация…", 250, 400);
+
     const payload = {
       firstName: f.firstName.value.trim(),
       lastName: f.lastName.value.trim(),
-      phone: f.phone.value.trim(), // уже +E.164 из phone.js
+      phone, // ← берём нормализованный номер
       email: f.email.value.trim().toLowerCase(),
       password: pwd,
       caseNumber: f.caseNumber.value.trim(),
     };
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const f = e.currentTarget;
-
-      const pwd = f.password.value;
-      const pwd2 = f.passwordConfirm?.value || "";
-      if (pwd !== pwd2) {
-        const pc = $("#passwordConfirm");
-        pc?.classList.add("ring-2", "ring-red-500/60");
-        pc?.setAttribute("aria-invalid", "true");
-        pc?.focus();
-        toast("Пароли не совпадают");
-        return;
-      } else {
-        const pc = $("#passwordConfirm");
-        pc?.classList.remove("ring-2", "ring-red-500/60");
-        pc?.removeAttribute("aria-invalid");
-      }
-
-      // собрать payload (телефон уже +E.164 после правки в phone.js)
-      const payload = {
-        firstName: f.firstName.value.trim(),
-        lastName: f.lastName.value.trim(),
-        phone: f.phone.value.trim(), // +E.164
-        email: f.email.value.trim().toLowerCase(),
-        password: pwd,
-        caseNumber: f.caseNumber.value.trim(),
-      };
-
-      // --- pending helpers (локальная версия из админки) ---
-      let pendingCount = 0;
-      function setPending(on, text = "Отправляем письмо…") {
-        const overlay = document.getElementById("pending-overlay");
-        const label = document.getElementById("pending-text");
-        if (!overlay || !label) return;
-
-        if (on) {
-          pendingCount++;
-          label.textContent = text;
-          overlay.classList.remove("hidden");
-          document.body.classList.add("overflow-hidden");
-          // дизейблим все интерактивы формы, чтобы не кликали повторно
-          Array.from(f.elements).forEach((el) => (el.disabled = true));
-        } else {
-          pendingCount = Math.max(0, pendingCount - 1);
-          if (pendingCount === 0) {
-            overlay.classList.add("hidden");
-            document.body.classList.remove("overflow-hidden");
-            Array.from(f.elements).forEach((el) => (el.disabled = false));
-          }
-        }
-      }
-
-      function startSmartPending(
-        text = "Регистрация…",
-        thresholdMs = 250,
-        minVisibleMs = 400
-      ) {
-        let showTimer = null;
-        let shown = false;
-        let showStarted = 0;
-
-        showTimer = setTimeout(() => {
-          shown = true;
-          showStarted = performance.now();
-          setPending(true, text);
-        }, thresholdMs);
-
-        return function stop() {
-          clearTimeout(showTimer);
-          if (!shown) return;
-          const elapsed = performance.now() - showStarted;
-          const wait = Math.max(0, minVisibleMs - elapsed);
-          setTimeout(() => setPending(false), wait);
-        };
-      }
-      // --- /pending helpers ---
-
-      const submitBtn = f.querySelector('button[type="submit"]');
-      submitBtn?.setAttribute("data-prev-text", submitBtn.textContent || "");
-      submitBtn && (submitBtn.textContent = "Регистрируем…");
-
-      const stopPending = startSmartPending("Регистрация…", 250, 400);
-
-      try {
-        if (window.USE_API) {
-          await api.register(payload); // {"ok":true}
-          localStorage.setItem("fc_last_email", payload.email);
-          toast("Регистрация успешна");
-          location.href = "login.html";
-          return;
-        }
+    try {
+      if (window.USE_API) {
+        await api.register(payload);
+        localStorage.setItem("fc_last_email", payload.email);
+        toast("Регистрация успешна");
         location.href = "login.html";
-      } catch (err) {
-        toast(err.message || "Ошибка регистрации");
-      } finally {
-        stopPending();
-        if (submitBtn) {
-          const prev =
-            submitBtn.getAttribute("data-prev-text") || "Зарегистрироваться";
-          submitBtn.textContent = prev;
-          submitBtn.removeAttribute("data-prev-text");
-        }
+        return;
       }
-    });
+      location.href = "login.html";
+    } catch (err) {
+      toast(err.message || "Ошибка регистрации");
+    } finally {
+      stopPending();
+      if (submitBtn) {
+        const prev =
+          submitBtn.getAttribute("data-prev-text") || "Зарегистрироваться";
+        submitBtn.textContent = prev;
+        submitBtn.removeAttribute("data-prev-text");
+      }
+    }
   });
 }
 

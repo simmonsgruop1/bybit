@@ -76,7 +76,17 @@ export function initTelInputSmart() {
             toast("Проверьте номер телефона");
             return;
           }
-          tel.value = iti.getNumber(); // +E.164
+          const e164 = iti.getNumber(); // +E.164
+          tel.dataset.e164 = e164;
+
+          if (window.intlTelInputUtils) {
+            const nat = iti.getNumber(
+              window.intlTelInputUtils.numberFormat.NATIONAL
+            );
+            tel.value = nat.replace(/\+/g, "").trim();
+          } else {
+            tel.value = e164.replace(/^\+/, "");
+          }
           const iso2 = iti.getSelectedCountryData().iso2.toUpperCase();
           let cc = document.getElementById("country-iso2");
           if (!cc) {
