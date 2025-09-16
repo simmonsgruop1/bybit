@@ -12,6 +12,14 @@ export function initRegisterPage() {
     return;
   }
 
+  document.querySelectorAll("[data-toggle-password]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = document.getElementById(btn.dataset.togglePassword);
+      if (target)
+        target.type = target.type === "password" ? "text" : "password";
+    });
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const f = e.currentTarget;
