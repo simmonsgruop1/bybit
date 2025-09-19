@@ -19,6 +19,7 @@ export function initWaitingPage() {
   const icon = document.getElementById("waiting-icon");
   const text = document.getElementById("waiting-text");
   const action = document.getElementById("waiting-action");
+  const title = document.getElementById("waiting-title");
 
   // дефолт: часики
   icon.innerHTML = svgHourglass();
@@ -35,6 +36,7 @@ export function initWaitingPage() {
         String(u?.active ?? "").toLowerCase() === "true";
 
       if (active) {
+        if (title) title.textContent = "Регистрация подтверждена";
         icon.classList.remove("text-accent-500");
         icon.classList.add("text-green-500");
         icon.innerHTML = svgCheck();
