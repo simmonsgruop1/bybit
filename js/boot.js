@@ -4,6 +4,7 @@ import { initDynamicNav } from "./features/nav.js";
 import { initRegisterPage, initLoginPage } from "./features/auth.js";
 import { initAdminPage } from "./features/admin.js";
 import { initDashboardPage } from "./features/dashboard.js";
+import { initWaitingPage } from "./features/waiting.js";
 
 window.addEventListener("DOMContentLoaded", async () => {
   initDynamicNav();
@@ -21,4 +22,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   initLoginPage();
   initDashboardPage();
   initAdminPage();
+  initWaitingPage();
 });
