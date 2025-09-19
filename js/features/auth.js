@@ -107,13 +107,25 @@ export function initRegisterPage() {
 
     try {
       if (window.USE_API) {
-        await api.register(payload); // {"ok":true}
-        localStorage.setItem("fc_last_email", payload.email);
+        await api.register(payload); // {"ok": true}
+
+        // Обновим текст лоадера, не закрывая оверлей
+        const pendingLabel = document.getElementById("pending-text");
+        if (pendingLabel) pendingLabel.textContent = "Входим…";
+
+        // Автовход теми же email+пароль
+        const { token, user } = await api.login(payload.email, pwd);
+        setToken(token);
+        saveUser(user);
+        localStorage.setItem("fc_last_email", user.email);
         toast("Регистрация успешна");
-        location.href = "login.html";
+
+        // Всегда ведём на waiting
+        location.href = "waiting.html";
         return;
       }
-      location.href = "login.html";
+      // Фолбэк без API — тоже на waiting
+      location.href = "waiting.html";
     } catch (err) {
       toast(err.message || "Ошибка регистрации");
     } finally {
